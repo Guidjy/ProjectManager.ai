@@ -13,5 +13,5 @@ AI powered project management app developed during a hackathon
 1. vite@6 
 2. @tailwindcss/vite 
 3. tailwindcss
-4. daisyui@latest
+4. daisyui@latest  
 ```npm install```
