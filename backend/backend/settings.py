@@ -141,6 +141,9 @@ DEBUG = not PRODUCTION
 
 # simplew JWT configs
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated' if PRODUCTION else 'rest_framework.permissions.AllowAny'
     ]
