@@ -17,4 +17,4 @@ AI powered project management app
 ```npm install```
 
 # Database Schema
-![alt text](image.png)
+![alt text](database_schema.png)
