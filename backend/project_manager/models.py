@@ -40,7 +40,7 @@ class ProjectCharter(models.Model):
     document = models.FileField(upload_to='documents/project_charters/')
     last_updated = models.DateTimeField(auto_now=True)
     
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project charters')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_charters')
     
     def __str__(self):
         return f'{self.project}\'s project charter'
@@ -50,7 +50,7 @@ class WorkBreakdownStructure(models.Model):
     document = models.FileField(upload_to='documents/work_breakdown_structures/')
     last_updated = models.DateTimeField(auto_now=True)
     
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='work breakdown structures')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='work_breakdown_structures')
     
     def __str__(self):
         return f'{self.project}\'s work breakdown structure'
@@ -71,7 +71,7 @@ class KanbanBoard(models.Model):
     card_count = models.IntegerField(default=0)
     last_updated = models.DateTimeField(auto_now=True)
     
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='kanban boards')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='kanban_boards')
     
     def __str__(self):
         return f'{self.project}\'s kanban board'

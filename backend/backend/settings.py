@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-=_02hhrv#9l&%$vqsilya_)oxy2)(4luux3h2u=hhs=xdjkmn(
 
 INSTALLED_APPS = [
     'accounts',
+    'project_manager',
     
     'django.contrib.admin',
     'django.contrib.auth',
