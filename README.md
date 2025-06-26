@@ -1,7 +1,7 @@
 # ProjectManager.ai
 AI powered project management app
 
-# pip packages:
+# pip Packages:
 1. django
 2. djangorestframework
 3. django-cors-headers
@@ -9,12 +9,12 @@ AI powered project management app
 5. email-validator  
 ```pip install django djangorestframework django-cors-headers djangorestframework-simplejwt email-validator```
 
-# npm packages:
+# npm Packages:
 1. vite@6 
 2. @tailwindcss/vite 
 3. tailwindcss
 4. daisyui@latest  
 ```npm install```
 
-# Database Schema
+# Database Schema:
 ![alt text](database_schema.png)
