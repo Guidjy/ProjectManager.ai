@@ -90,5 +90,20 @@ class KanbanCard(models.Model):
     board = models.ForeignKey(KanbanBoard, on_delete=models.CASCADE, related_name='cards')
     responsible_members = models.ManyToManyField(Member, blank=True, related_name='tasks')
     
-    def __str__(self):
-        return f'{self.task} - {self.status}'
+    def save(self, *args, **kwargs):
+        # indicates if a new card is being created 
+        is_new = self.pk is None
+        
+        super().save(*args, **kwargs)
+        
+        # if a new card was created, updates the card_count of that card's board
+        if is_new:
+            self.board.card_count += 1
+            self.board.save()
+
+    def delete(self, *args, **kwargs):
+        # overrites default delete function to handle card_count decrease
+        if self.board.card_count > 0:
+            self.board.card_count -= 1
+            self.board.save()
+        super().delete(*args, **kwargs)
