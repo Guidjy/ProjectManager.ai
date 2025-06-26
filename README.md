@@ -1,5 +1,5 @@
 # ProjectManager.ai
-AI powered project management app developed during a hackathon
+AI powered project management app
 
 # pip packages:
 1. django
@@ -15,3 +15,6 @@ AI powered project management app developed during a hackathon
 3. tailwindcss
 4. daisyui@latest  
 ```npm install```
+
+# Database Schema
+![alt text](image.png)
