@@ -66,7 +66,7 @@ def generate_report(request, project_id):
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
-        return Response({'error': f'There are no projects with id {project_id}.'}, status=400)
+        return Response({'error': f'There is no project with id {project_id}.'}, status=400)
 
     # queries the database for that project's status reports (queries by reverse chronological order and limits the query to only 5 objects)
     status_reports = StatusReport.objects.filter(project=project).order_by('-created_at')[:5]
@@ -81,7 +81,7 @@ def generate_report(request, project_id):
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model='gemini-2.5-flash-preview-05-20',
-        contents=f'Generate a 2 paragraph long summary of the current status of the project based on the last week\'s status reports. {reports_text}'
+        contents=f'Generate a 3 paragraph long summary of the current status of the project based on the last week\'s status reports. {reports_text}'
     )
     current_status = response.text
     
