@@ -4,7 +4,6 @@ from accounts.models import User
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField(max_length=4000, null=True, blank=True)
     current_status = models.TextField(max_length=5000, null=True, blank=True)
     
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')

@@ -58,42 +58,6 @@ class KanbanCardViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
-def generate_description(request, project_id):
-    """
-    generates a short description of the project based on its project charter
-    """
-    # queries the database for the project
-    try:
-        project = Project.objects.get(id=project_id)
-    except Project.DoesNotExist:
-        return Response({'error': f'There are no projects with id {project_id}.'}, status=400)
-    
-    # queries the database for that project's project charter
-    try:
-        charter = ProjectCharter.objects.get(project=project)
-    except ProjectCharter.DoesNotExist:
-        return Response({'error': 'There is no project charter for that project.'}, status=400)
-    
-    # extracts the text from the project charter file
-    pdf_text = 'Project charter: '
-    pdf_text += extract_pdf_text(charter.document)
-            
-    # promts ai for a project description
-    api_key = os.getenv('GENAI_API_KEY')
-    client = genai.Client(api_key=api_key)
-    response = client.models.generate_content(
-        model='gemini-2.5-flash-preview-05-20',
-        contents=f'Generate a 2 paragraph long description for a project based on its project charter. {pdf_text}'
-    )
-    description = response.text
-    
-    project.description = description
-    project.save()
-    
-    return Response({'description': description}, status=200)
-
-
-@api_view(['GET'])
 def generate_report(request, project_id):
     """
     Compares data from the 5 most recent reports to generate a short description of the project's current status
