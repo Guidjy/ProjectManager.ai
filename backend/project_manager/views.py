@@ -70,6 +70,8 @@ def generate_report(request, project_id):
 
     # queries the database for that project's status reports (queries by reverse chronological order and limits the query to only 5 objects)
     status_reports = StatusReport.objects.filter(project=project).order_by('-created_at')[:5]
+    if not status_reports:
+        return Response({'error': 'This project has no status reports'}, status=400)
     
     # extracts the text from the reports
     reports_text = 'Status reports: '
