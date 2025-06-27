@@ -59,6 +59,9 @@ class KanbanCardViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def generate_description(request, project_id):
+    """
+    generates a short description of the project based on its project charter
+    """
     # queries the database for the project
     try:
         project = Project.objects.get(id=project_id)
@@ -75,13 +78,50 @@ def generate_description(request, project_id):
     pdf_text = 'Project charter: '
     pdf_text += extract_pdf_text(charter.document)
             
-    # promts ai for a dproject description
+    # promts ai for a project description
     api_key = os.getenv('GENAI_API_KEY')
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model='gemini-2.5-flash-preview-05-20',
         contents=f'Generate a 2 paragraph long description for a project based on its project charter. {pdf_text}'
     )
+    description = response.text
     
-    serializer = ProjectCharterSerializer(charter)
-    return Response({'description': response.text}, status=200)
+    project.description = description
+    project.save()
+    
+    return Response({'description': description}, status=200)
+
+
+@api_view(['GET'])
+def generate_report(request, project_id):
+    """
+    Compares data from the 5 most recent reports to generate a short description of the project's current status
+    """
+    # queries the database for the project
+    try:
+        project = Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        return Response({'error': f'There are no projects with id {project_id}.'}, status=400)
+
+    # queries the database for that project's status reports (queries by reverse chronological order and limits the query to only 5 objects)
+    status_reports = StatusReport.objects.filter(project=project).order_by('-created_at')[:5]
+    
+    # extracts the text from the reports
+    reports_text = 'Status reports: '
+    for report in status_reports:
+        reports_text += extract_pdf_text(report.document)
+        
+    # promts ai for a summary of the current status of the project
+    api_key = os.getenv('GENAI_API_KEY')
+    client = genai.Client(api_key=api_key)
+    response = client.models.generate_content(
+        model='gemini-2.5-flash-preview-05-20',
+        contents=f'Generate a 2 paragraph long summary of the current status of the project based on the last week\'s status reports. {reports_text}'
+    )
+    current_status = response.text
+    
+    project.current_status = current_status
+    project.save()
+    
+    return Response({'current_status': current_status}, status=200)

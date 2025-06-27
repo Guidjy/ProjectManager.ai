@@ -4,7 +4,8 @@ from accounts.models import User
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField(max_length=750, null=True, blank=True)
+    description = models.TextField(max_length=4000, null=True, blank=True)
+    current_status = models.TextField(max_length=5000, null=True, blank=True)
     
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
     
@@ -57,8 +58,7 @@ class WorkBreakdownStructure(models.Model):
 
 
 class StatusReport(models.Model):
-    title = models.CharField(max_length=50)
-    content = models.TextField(max_length=2500, blank=True, null=True)
+    title = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     document = models.FileField(upload_to='documents/status_reports/')
     

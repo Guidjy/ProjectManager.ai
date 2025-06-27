@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.test),
     path('', include(router.urls)),
     path('generate_description/<int:project_id>/', views.generate_description),
+    path('generate_report/<int:project_id>/', views.generate_report),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
