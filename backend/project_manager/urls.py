@@ -21,5 +21,6 @@ router.register(r'kanban-cards', KanbanCardViewSet)
 urlpatterns = [
     path('', views.test),
     path('', include(router.urls)),
-    path('generate_report/<int:project_id>/', views.generate_report),
+    path('generate-report/<int:project_id>/', views.generate_report),
+    path('generate-kanban-board/<int:project_id>', views.generate_kanban_board),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

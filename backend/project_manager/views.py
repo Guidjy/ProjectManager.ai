@@ -7,7 +7,7 @@ from .models import Project, Member, Role, ProjectCharter, WorkBreakdownStructur
 from .serializers import (ProjectSerializer, MemberSerializer, RoleSerializer, ProjectCharterSerializer, 
     WorkBreakdownStructureSerializer, StatusReportSerializer, KanbanBoardSerializer, KanbanCardSerializer)
 
-from .utils import extract_pdf_text
+from .services import extract_pdf_text, extract_json_from_string
 
 import os
 from google import genai
@@ -91,3 +91,51 @@ def generate_report(request, project_id):
     project.save()
     
     return Response({'current_status': current_status}, status=200)
+
+
+@api_view(['GET'])
+def generate_kanban_board(request, project_id):
+    """
+    Generates tasks for a kanban board based on the project's work breakdown structure
+    """
+    # queries the database for the project
+    try:
+        project = Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        return Response({'error': f'There is no project with id {project_id}.'}, status=400)
+    
+    # queries the database for a kanban board related to that project
+    try:
+        board = KanbanBoard.objects.get(project=project)
+    except KanbanBoard.DoesNotExist:
+        # creates a board for that project in case it doesn't exist
+        board = KanbanBoard.objects.create(project=project)
+    
+    # queries the database for a work breakdown structure related to that project
+    try:
+        wbs = WorkBreakdownStructure.objects.get(project=project)
+    except WorkBreakdownStructure.DoesNotExist:
+        return Response({'error': 'That project does not have a work breakdown structure yet.'}, status=400)
+    
+    # extracts text from the wbs document
+    wbs_text = 'work breakdown structure: '
+    wbs_text += extract_pdf_text(wbs.document)
+    
+    # promts ai for tasks based on the components described in the wbs
+    api_key = os.getenv('GENAI_API_KEY')
+    client = genai.Client(api_key=api_key)
+    response = client.models.generate_content(
+        model='gemini-2.5-flash-preview-05-20',
+        contents='Generate tasks based on this project\'s work breakdown structure and put them in a json list in the following format: [{"task": "<task>"}]' + wbs_text
+    )
+    tasks = extract_json_from_string(response.text)
+    
+    # creates kanbanCard model instances for all of the generated tasks
+    for task in tasks:
+        task['status'] = 'to do'
+        task['board'] = board
+        KanbanCard.objects.create(**task)
+        # serializes the board so that the tasks can be rendered later
+        task['board'] = KanbanBoardSerializer(board).data
+
+    return Response({'tasks': tasks}, status=200)
