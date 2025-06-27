@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Member, Role, ProjectCharter, WorkBreakdownStructure, Report, KanbanBoard, KanbanCard
+from .models import Project, Member, Role, ProjectCharter, WorkBreakdownStructure, StatusReport, KanbanBoard, KanbanCard
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -32,9 +32,9 @@ class WorkBreakdownStructureSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ReportSerializer(serializers.ModelSerializer):
+class StatusReportSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Report
+        model = StatusReport
         fields = '__all__'
 
 

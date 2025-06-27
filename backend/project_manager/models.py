@@ -56,12 +56,13 @@ class WorkBreakdownStructure(models.Model):
         return f'{self.project}\'s work breakdown structure'
 
 
-class Report(models.Model):
+class StatusReport(models.Model):
     title = models.CharField(max_length=50)
-    content = models.TextField(max_length=2500)
+    content = models.TextField(max_length=2500, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    document = models.FileField(upload_to='documents/status_reports/')
     
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='reports')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='status_reports')
     
     def __str__(self):
         return f'{self.title} ({self.project}) - {self.created_at}'

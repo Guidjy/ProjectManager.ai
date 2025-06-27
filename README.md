@@ -7,7 +7,10 @@ AI powered project management app
 3. django-cors-headers
 4. djangorestframework-simplejwt
 5. email-validator  
-```pip install django djangorestframework django-cors-headers djangorestframework-simplejwt email-validator```
+6. PyPDF2
+7. google-genai
+8. dotenv
+```pip install django djangorestframework django-cors-headers djangorestframework-simplejwt email-validator PyPDF2 google-genai dotenv```
 
 # npm Packages:
 1. vite@6 
@@ -18,3 +21,5 @@ AI powered project management app
 
 # Database Schema:
 ![alt text](database_schema.png)
+
+# Routes:
