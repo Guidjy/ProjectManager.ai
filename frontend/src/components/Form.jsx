@@ -1,7 +1,7 @@
 export function Form({ fields, onSubmit }) {
   return (
-    <form onSubmit={ (event) => {event.preventDefault(); onSubmit();} }>
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+    <form className="w-full md:w-xl lg:w-lg mx-10" onSubmit={ (event) => {event.preventDefault(); onSubmit();} }>
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
         <legend className="fieldset-legend">Login</legend>
         {fields.map((field, index) => (
           <FormField
@@ -9,6 +9,7 @@ export function Form({ fields, onSubmit }) {
             label={field.label}
             type={field.type}
             placeholder={field.placeholder}
+            onChange={field.onChange}
           />
         ))}
         <button type="submit" className="btn btn-primary my-2">login</button>
@@ -18,11 +19,11 @@ export function Form({ fields, onSubmit }) {
 }
 
 
-export function FormField({label, type, placeholder}) {
+export function FormField({label, type, placeholder, onChange}) {
   return (
     <>
       <label className="label">{label}</label>
-      <input type={type} className="input mb-2" placeholder={placeholder} />
+      <input type={type} onChange={onChange} className="input mb-2 w-full" placeholder={placeholder} />
     </>
   );
 }
