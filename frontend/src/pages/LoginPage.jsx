@@ -1,7 +1,25 @@
+// layout
+import LoginRegisterLayout from "../layouts/LoginRegisterLayout";
+// components
+import { Form, FormField } from "../components/Form";
+
+
 export default function LoginPage() {
+
+  const fields = [
+    { label: "Username", type: "text", placeholder: "username" },
+    { label: "Password", type: "password", placeholder: "password" },
+  ];
+
   return (
     <>
-      <h1>Login</h1>
+      <LoginRegisterLayout>
+        {/* Login form */}
+        <Form
+        fields={fields}
+        onSubmit={() => {console.log('form submitted');} }
+        />
+      </LoginRegisterLayout>
     </>
   );
 }
