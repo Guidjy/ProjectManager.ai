@@ -72,3 +72,9 @@ def register(request):
     serializer = UserSerializer(user)
     
     return Response({'success': 'User successfully created.', 'user': serializer.data}, status=200)
+
+
+@api_view(['GET'])
+def get_current_user(request):
+    user = request.user
+    return Response(UserSerializer(user).data)

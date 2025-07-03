@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # user CRUD operations
     path('users/', include(router.urls)),
+    path('me/', views.get_current_user),
 ]
