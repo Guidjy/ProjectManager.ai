@@ -17,6 +17,7 @@ AI powered project management app
 2. @tailwindcss/vite 
 3. tailwindcss
 4. daisyui@latest  
+5. axios
 ```npm install```
 
 # Database Schema:
