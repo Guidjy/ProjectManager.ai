@@ -1,8 +1,8 @@
-export function Form({ fields, onSubmit }) {
+export function Form({ title, fields, onSubmit, buttonText }) {
   return (
     <form className="w-full md:w-xl lg:w-lg mx-10" onSubmit={ (event) => {event.preventDefault(); onSubmit();} }>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-        <legend className="fieldset-legend">Login</legend>
+        <legend className="fieldset-legend">{title}</legend>
         {fields.map((field, index) => (
           <FormField
             key={index}
@@ -12,7 +12,7 @@ export function Form({ fields, onSubmit }) {
             onChange={field.onChange}
           />
         ))}
-        <button type="submit" className="btn btn-primary my-2">login</button>
+        <button type="submit" className="btn btn-primary my-2">{buttonText}</button>
       </fieldset>
     </form>
   );

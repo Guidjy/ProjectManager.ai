@@ -1,7 +1,7 @@
-export default function LoginRegisterLayout({ children }) {
+export default function LoginRegisterLayout({ children, footer }) {
   return (
     <>
-      <div className="flex justify-center items-center h-screen w-full">
+      <div className="flex flex-col justify-center items-center h-screen w-full">
         {children}
       </div>
     </>

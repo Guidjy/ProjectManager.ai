@@ -3,6 +3,39 @@ import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE;
 
+
+// attempts to register user with username, email and password
+export async function register(username, email, password, passwordConfirmation) {
+  if (password !== passwordConfirmation) {
+    console.log('password and password confirmation do not match.');
+    return false;
+  }
+
+  if (username && password && email) {
+
+    try {
+      // tries to register user
+      const response = await axios.post(`${API_BASE_URL}/accounts/register/`, {
+        username: username,
+        email: email,
+        password: password,
+        passwordConfirmation: passwordConfirmation
+      });
+      console.log(response);
+      // redirects user to login page
+      window.location.href = "/login"
+    } catch (error) {
+      // handles exception
+      console.error("Registration failed:", error);
+      throw error;
+    }
+
+  } else {
+    console.log('All form fields must be filled in.');
+    return false;
+  }
+}
+
 // attempts to log user in with username and password
 export async function login(username, password) {
   
