@@ -160,9 +160,8 @@ def ask_ai(request):
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
             model='gemini-2.5-pro',
-            contents=f'Given the context for a project, succinctly respond to the following message. Context: {project.current_status} Message: \"{message}\"'
+            contents=f'Given the context for a project, succinctly respond to the following message with plain text. Context: {project.current_status} Message: \"{message}\"'
         )
-        print(response.text)
         
         return Response({'response': response.text}, status=200)
     
