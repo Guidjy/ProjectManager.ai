@@ -139,3 +139,31 @@ def generate_kanban_board(request, project_id):
         task['board'] = KanbanBoardSerializer(board).data
 
     return Response({'tasks': tasks}, status=200)
+
+
+@api_view(['POST'])
+def ask_ai(request):
+    """
+    Chat with ai
+    """
+    project_id = request.data.get('projectId')
+    message = request.data.get('message')
+    
+    if message and project_id:
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            return Response({'error': f'There is no project with id {project_id}'}, status=200)
+        
+        # sends message to the llm
+        api_key = os.getenv('GENAI_API_KEY')
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model='gemini-2.5-pro',
+            contents=f'Given the context for a project, succinctly respond to the following message. Context: {project.current_status} Message: \"{message}\"'
+        )
+        print(response.text)
+        
+        return Response({'response': response.text}, status=200)
+    
+    return Response({'error': 'No message was sent.'}, status=400)

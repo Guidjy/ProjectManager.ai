@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('generate-report/<int:project_id>/', views.generate_report),
     path('generate-kanban-board/<int:project_id>', views.generate_kanban_board),
+    path('ask-ai/', views.ask_ai),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
