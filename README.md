@@ -18,6 +18,7 @@ AI powered project management app
 3. tailwindcss
 4. daisyui@latest  
 5. axios
+6. axios-auth-refresh
 ```npm install```
 
 # Database Schema:

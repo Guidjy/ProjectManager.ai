@@ -21,6 +21,7 @@ router.register(r'kanban-cards', KanbanCardViewSet)
 urlpatterns = [
     path('', views.test),
     path('', include(router.urls)),
+    path('get-user-projects/', views.get_user_projects),
     path('generate-report/<int:project_id>/', views.generate_report),
     path('generate-kanban-board/<int:project_id>', views.generate_kanban_board),
     path('ask-ai/', views.ask_ai),

@@ -55,7 +55,24 @@ class KanbanBoardViewSet(viewsets.ModelViewSet):
 class KanbanCardViewSet(viewsets.ModelViewSet):
     queryset = KanbanCard.objects.all()
     serializer_class = KanbanCardSerializer
-
+    
+    
+@api_view(['GET'])
+def get_user_projects(request):
+    """
+    Gets all of the projects that the current user is a member of.
+    """
+    # gets the member object associated with the currently logged in user
+    try:
+        member = Member.objects.get(account=request.user)
+    except Member.DoesNotExist:
+        return Response({'error': 'User is not currently logged in.'}, status=400)
+    
+    # gets all of the projects roles related to that member
+    roles = Role.objects.filter(member=member)
+    
+    return Response(RoleSerializer(roles, many=True).data, status=200)    
+    
 
 @api_view(['GET'])
 def generate_report(request, project_id):
