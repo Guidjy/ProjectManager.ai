@@ -6,6 +6,7 @@ import { Form, FormField } from "../components/Form";
 import { register } from "../services/auth";
 // hooks
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
@@ -15,6 +16,8 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const navigate = useNavigate();
 
   const fields = [
     { label: "Username", type: "text", placeholder: "username", onChange: (event) => {setUsername(event.target.value)} },
@@ -30,7 +33,7 @@ export default function RegisterPage() {
         <Form
         title="Register"
         fields={fields}
-        onSubmit={() => register(username, email, password, passwordConfirmation)}
+        onSubmit={() => register(username, email, password, passwordConfirmation, navigate)}
         buttonText="Register"
         />
         <p className="text-xs font-light mt-2">Already have an account? <Link to="/login" className="link">Sign in</Link></p>

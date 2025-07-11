@@ -1,11 +1,11 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE;
 
-
 // attempts to register user with username, email and password
-export async function register(username, email, password, passwordConfirmation) {
+export async function register(username, email, password, passwordConfirmation, navigate) {
   if (password !== passwordConfirmation) {
     console.log('password and password confirmation do not match.');
     return false;
@@ -23,7 +23,7 @@ export async function register(username, email, password, passwordConfirmation) 
       });
       console.log(response);
       // redirects user to login page
-      window.location.href = "/login"
+      navigate("/login");
     } catch (error) {
       // handles exception
       console.error("Registration failed:", error);
@@ -37,7 +37,7 @@ export async function register(username, email, password, passwordConfirmation) 
 }
 
 // attempts to log user in with username and password
-export async function login(username, password) {
+export async function login(username, password, navigate) {
   
   // authenticates user
   try {
@@ -50,6 +50,9 @@ export async function login(username, password) {
     localStorage.setItem("user", username);
     localStorage.setItem("accessToken", response.data.access);
     localStorage.setItem("refreshToken", response.data.refresh);
+
+    // redirects user to home page
+    navigate("/");
   } catch (error) {
     // handle exception
     console.error("Login failed:", error);
