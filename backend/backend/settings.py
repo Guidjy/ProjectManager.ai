@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -151,6 +152,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated' if PRODUCTION else 'rest_framework.permissions.AllowAny'
     ]
 }
+
+# settings.py
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),   # short-lived access
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     # longer refresh
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+}
+
 
 # allowed origins
 if PRODUCTION:

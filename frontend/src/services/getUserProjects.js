@@ -1,6 +1,6 @@
 import api from "./makeRequestWithAuth";
 
-/*gets all fo the projects that the current user is a part of*/
+/*gets all of the projects that the current user is a part of*/
 export async function getUserProjects() {
     try {
         const response = await api.get('get-user-projects/')
