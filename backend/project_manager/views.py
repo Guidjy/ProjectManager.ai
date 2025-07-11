@@ -71,7 +71,7 @@ def get_user_projects(request):
     # gets all of the projects roles related to that member
     roles = Role.objects.filter(member=member)
     
-    return Response(RoleSerializer(roles, many=True).data, status=200)    
+    return Response({'projects': RoleSerializer(roles, many=True).data}, status=200)    
     
 
 @api_view(['GET'])
