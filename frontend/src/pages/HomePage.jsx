@@ -1,7 +1,11 @@
+import HomeLayout from "../layouts/HomeLayout";
+
 export default function HomePage() {
   return (
     <>
-      <h1 className="bg-accent">Home</h1>
+      <HomeLayout>
+        <h1 className="">Home</h1>
+      </HomeLayout>
     </>
   );
 }
