@@ -1,5 +1,6 @@
 // components
 import Navbar from "../components/Navbar"
+import Dock from "../components/Dock";
 // hooks
 import { useBreakpoint } from "../hooks/useBreakpoint"
 
@@ -12,7 +13,7 @@ export default function HomeLayout({ children }) {
     <>
       <div className="">
         {breakPoint === "xs" || breakPoint === "sm" ? (
-          <h1>MOBILE LAYOUT</h1>
+          <Dock />
         ) : (
           <Navbar />
         )}
