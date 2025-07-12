@@ -7,11 +7,7 @@ import { useEffect } from "react";
 // services
 import { getUserProjects } from "../services/getUserProjects";
 
-import TestComponent from "../components/testComponent";
-
 export default function HomePage() {
-
-  TestComponent();
 
   useEffect(() => {
     getUserProjects();

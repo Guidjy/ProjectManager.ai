@@ -14,7 +14,7 @@ async function refreshAuth(failedRequest) {
         const refreshToken = localStorage.getItem("refreshToken");
 
         // refreshes the access token
-        const response = await api.post("/api/token/refresh/", {
+        const response = await api.post("accounts/api/token/refresh/", {
             refresh: refreshToken,
         });
         const newAccessToken = response.data.access;
@@ -22,6 +22,7 @@ async function refreshAuth(failedRequest) {
         
         // updates failed request with new access token
         failedRequest.response.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        console.log("token refreshed");
 
         // retrues original failed request
         return Promise.resolve();
