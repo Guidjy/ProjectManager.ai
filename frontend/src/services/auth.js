@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./makeRequestWithAuth";
 import { useNavigate } from "react-router-dom";
 
 
@@ -15,7 +15,7 @@ export async function register(username, email, password, passwordConfirmation, 
 
     try {
       // tries to register user
-      const response = await axios.post(`${API_BASE_URL}/accounts/register/`, {
+      const response = await api.post(`${API_BASE_URL}/accounts/register/`, {
         username: username,
         email: email,
         password: password,
@@ -42,7 +42,7 @@ export async function login(username, password, navigate) {
   // authenticates user
   try {
     // fetches refresh and acces tokens
-    const response = await axios.post(`${API_BASE_URL}/accounts/api/token/`, {
+    const response = await api.post(`${API_BASE_URL}/accounts/api/token/`, {
       username: username,
       password: password
     });
@@ -62,7 +62,7 @@ export async function login(username, password, navigate) {
   // gets relevant user data
   try {
     // fetches user data
-    const response = await axios.get(`${API_BASE_URL}/accounts/me/`, {
+    const response = await api.get(`${API_BASE_URL}/accounts/me/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },

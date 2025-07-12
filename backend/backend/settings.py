@@ -153,10 +153,9 @@ REST_FRAMEWORK = {
     ]
 }
 
-# settings.py
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),   # short-lived access
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     # longer refresh
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
 }
