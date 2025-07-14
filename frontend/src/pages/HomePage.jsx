@@ -22,6 +22,7 @@ export default function HomePage() {
           </li>
           <li>
             <ProjectButton name="project 2" />
+            0-0
           </li>
         </ul>
       </HomeLayout>
