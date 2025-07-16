@@ -1,11 +1,16 @@
+// components
 import { Form } from "./Form";
+import { createProject } from "../services/createProject";
+// hooks
+import { useState } from "react";
 
 
 export default function CreateProjectButton() {
 
+  const [projectName, setProjectName] = useState("");
+
   const fields = [
-    { label: "Username", type: "text", placeholder: "username", onChange: (event) => {setUsername(event.target.value)} },
-    { label: "Password", type: "password", placeholder: "password", onChange: (event) => {setPassword(event.target.value)} },
+    { label: "Name", type: "text", placeholder: "Project name", onChange: (event) => {setProjectName(event.target.value)} },
   ];
   
   return (
@@ -21,7 +26,7 @@ export default function CreateProjectButton() {
             <Form
             title="Create Project"
             fields={fields}
-            onSubmit={console.log('project created')}
+            onSubmit={() => createProject(projectName)}
             buttonText="Create Project"
             />
           </div>

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from accounts.models import User
 from .models import Project, Member, Role, ProjectCharter, WorkBreakdownStructure, StatusReport, KanbanBoard, KanbanCard
 from .serializers import (ProjectSerializer, MemberSerializer, RoleSerializer, ProjectCharterSerializer, 
     WorkBreakdownStructureSerializer, StatusReportSerializer, KanbanBoardSerializer, KanbanCardSerializer)
@@ -76,6 +77,24 @@ def get_user_projects(request):
         roles.append(project)
     
     return Response(roles, status=200)    
+
+
+@api_view(['GET'])
+def get_member_by_curret_user(request):
+    """
+    Gets the member model associated with the current user
+    """
+    current_user = request.user
+    
+    try:
+        member = Member.objects.get(account=current_user)
+    except Member.DoesNotExist:
+        member = Member.objects.create(
+            name=current_user.username,
+            account=current_user
+        )
+    
+    return Response(MemberSerializer(member).data, status=200)
     
 
 @api_view(['GET'])
