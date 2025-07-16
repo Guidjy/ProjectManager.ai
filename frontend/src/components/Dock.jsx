@@ -1,6 +1,6 @@
 import CreateProjectButton from "./CreateProjectButton"
 
-export default function Dock() {
+export default function Dock({ onProjectCreate }) {
   return (
     <>
       <div className="dock bg-base-100">
@@ -12,7 +12,7 @@ export default function Dock() {
         </button>
         
         <button>
-          <CreateProjectButton />
+          <CreateProjectButton onProjectCreate={onProjectCreate} />
           <span className="dock-label">New Project</span>
         </button>
         

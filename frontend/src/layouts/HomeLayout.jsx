@@ -5,16 +5,16 @@ import Dock from "../components/Dock";
 import { useBreakpoint } from "../hooks/useBreakpoint"
 
 
-export default function HomeLayout({ children }) {
+export default function HomeLayout({ children, onProjectCreate }) {
 
   const breakPoint = useBreakpoint();
   
   return (
     <>
       {breakPoint === "xs" || breakPoint === "sm" ? (
-        <Dock />
+        <Dock onProjectCreate={onProjectCreate} />
       ) : (
-        <Navbar />
+        <Navbar onProjectCreate={onProjectCreate} />
       )}
       <div className="flex justify-center w-full">
         <div className="flex flex-col justify-center justify-items-center w-full md:w-4/5 lg:w-2/3 xl:w-1/2 p-5 md:p-10">

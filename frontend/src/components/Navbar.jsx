@@ -1,6 +1,6 @@
 import CreateProjectButton from "./CreateProjectButton";
 
-export default function Navbar() {
+export default function Navbar({ onProjectCreate }) {
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -11,7 +11,7 @@ export default function Navbar() {
         {/* Create new project */}
         <div className="flex-1">
           <div className="tooltip tooltip-bottom" data-tip="create new project">
-            <CreateProjectButton />
+            <CreateProjectButton onProjectCreate={onProjectCreate} />
           </div>
         </div>
         {/* Profile */}

@@ -11,6 +11,7 @@ import { getUserProjects } from "../services/getUserProjects";
 export default function HomePage() {
 
   const [projects, setProjects] = useState([]);
+  const [projectCreated, setProjectCreated] = useState(false);
 
   // gets all of the user's projects
   useEffect(() => {
@@ -21,12 +22,13 @@ export default function HomePage() {
         console.log(response);
       }
     }
+    setProjectCreated(false);
     fetchProjects();
-  }, []);
+  }, [projectCreated]);
 
   return (
     <>
-      <HomeLayout>
+      <HomeLayout onProjectCreate={() => setProjectCreated(true)}>
         <ul>
           {projects.map((project) => {
             return (

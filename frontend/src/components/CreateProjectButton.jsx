@@ -5,7 +5,7 @@ import { createProject } from "../services/createProject";
 import { useState } from "react";
 
 
-export default function CreateProjectButton() {
+export default function CreateProjectButton({ onProjectCreate }) {
 
   const [projectName, setProjectName] = useState("");
 
@@ -26,7 +26,7 @@ export default function CreateProjectButton() {
             <Form
             title="Create Project"
             fields={fields}
-            onSubmit={() => createProject(projectName)}
+            onSubmit={async () => {await createProject(projectName); onProjectCreate();}}
             buttonText="Create Project"
             />
           </div>
