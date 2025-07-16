@@ -4,8 +4,9 @@ import api from "./makeRequestWithAuth";
 export async function getUserProjects() {
     try {
         const response = await api.get('get-user-projects/')
-        console.log(response.data);
+        return response.data;
     } catch (error) {
         console.error("request failed: ". error);
+        return false;
     }
 }

@@ -69,9 +69,13 @@ def get_user_projects(request):
         return Response({'error': 'User is not currently logged in.'}, status=400)
     
     # gets all of the projects roles related to that member
-    roles = Role.objects.filter(member=member)
+    query = Role.objects.filter(member=member)
+    roles = []
+    for role in query:
+        project = {'id': role.project.id, 'name': role.project.name, 'role': role.role}
+        roles.append(project)
     
-    return Response({'projects': RoleSerializer(roles, many=True).data}, status=200)    
+    return Response(roles, status=200)    
     
 
 @api_view(['GET'])

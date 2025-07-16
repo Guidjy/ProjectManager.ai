@@ -1,7 +1,15 @@
-export default function ProjectButton({ name}) {
+import { useState } from "react"
+
+export default function ProjectButton({ id, name, role }) {
+  
+  const [projectId, setProjectId] = useState(id);
+
   return (
     <>
-      <button className="btn btn-block btn-soft btn-primary rounded-3xl mb-1">{name}</button>
+      <button className="btn btn-block btn-soft btn-primary rounded-3xl mb-1">
+        {name}
+        <div className="ms-2 badge badge-outline badge-accent">{role}</div>
+      </button>
     </>
   )
 }
