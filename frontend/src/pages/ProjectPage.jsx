@@ -33,15 +33,15 @@ export default function ProjectPage() {
             readOnly
             placeholder="upload a status report to get a summary of the project's cuurrent status"
             className="textarea textarea-lg textarea-primary h-full w-full"
-            value={projectData.current_status}
+            value={projectData.current_status || ""}
           />
         </div>
       </div>
       {/* kanban board & stats */}
-      <div className="col-span-3 md:col-span-2 h-100">
+      <div className="col-span-3 md:col-span-2 h-150">
         {/* kanban board */}
-        <div className="bg-base-200 m-5 h-2/3">
-          <BigKanbanBoard/>
+        <div className="m-5 h-2/3">
+          <BigKanbanBoard projectId={projectId}/>
         </div>
         {/* stats */}
         <div className="bg-primary m-5 h-1/3">

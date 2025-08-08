@@ -81,7 +81,6 @@ class KanbanCard(models.Model):
     class StatusType(models.TextChoices):
         TODO = 'to do'
         IN_PROGRESS = 'in progress'
-        TESTING = 'testing'
         DONE = 'done'
         
     task = models.CharField(max_length=100)

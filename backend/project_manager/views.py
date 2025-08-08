@@ -181,6 +181,25 @@ def generate_kanban_board(request, project_id):
     return Response({'tasks': tasks}, status=200)
 
 
+@api_view(['GET'])
+def get_cards_by_project_id(request, project_id):
+    """
+    gets all of the kanban cards of a project
+    """
+    # gets board related to that project
+    try:
+        board = KanbanBoard.objects.get(project=project_id)
+    except KanbanBoard.DoesNotExist:
+        return Response({'warning': 'This project does not have a kanbanboard.'})
+    print(board)
+    
+    # gets all cards in that board
+    cards = KanbanCard.objects.filter(board=board)
+    cards = KanbanCardSerializer(cards, many=True).data
+    
+    return Response({'success': cards}, status=200)
+
+
 @api_view(['POST'])
 def ask_ai(request):
     """

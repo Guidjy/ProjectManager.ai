@@ -25,5 +25,6 @@ urlpatterns = [
     path('get-member-by-current-user/', views.get_member_by_curret_user),
     path('generate-report/<int:project_id>/', views.generate_report),
     path('generate-kanban-board/<int:project_id>', views.generate_kanban_board),
+    path('get-cards-by-project-id/<int:project_id>', views.get_cards_by_project_id),
     path('ask-ai/', views.ask_ai),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
