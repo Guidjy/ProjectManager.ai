@@ -1,9 +1,10 @@
 import api from "./makeRequestWithAuth";
 
-/*gets all of the projects that the current user is a part of*/
-export async function getUserProjects() {
+
+/*fetches data of porject by id*/
+export async function getProjectData(projectId) {
     try {
-        const response = await api.get('get-user-projects/')
+        const response = await api.get(`/projects/${projectId}`);
         return response.data;
     } catch (error) {
         console.error("request failed: ", error);

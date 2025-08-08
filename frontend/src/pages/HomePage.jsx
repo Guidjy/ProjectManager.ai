@@ -19,7 +19,6 @@ export default function HomePage() {
       const response = await getUserProjects();
       if (response) {
         setProjects(response);
-        console.log(response);
       }
     }
     setProjectCreated(false);
